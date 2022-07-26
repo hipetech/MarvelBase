@@ -1,11 +1,15 @@
 import React from 'react';
 import './App.scss';
 import NavigationBar from './components/navigationBar/navigationBar';
+import RandomHeroSection from './components/randomHeroSection/randomHeroSection';
 
 function App() {
     return (
         <>
-            <NavigationBar />
+            <div className="contentBox">
+                <NavigationBar />
+                <RandomHeroSection />
+            </div>
         </>
     );
 }

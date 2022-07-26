@@ -1,0 +1,121 @@
+@import "../../styles/variables";
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+
+p {
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.randomHeroSection {
+  width: 100%;
+  height: 250px;
+  margin: 50px auto;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, .5);
+  display: flex;
+  align-items: center;
+}
+
+.heroSection {
+  width: 520px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.imgBox {
+  width: 180px;
+  height: 180px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.heroDescription {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 300px;
+  height: 180px;
+}
+
+.btnBox {
+  display: flex;
+  justify-content: space-between;
+  width: 235px;
+}
+
+.red {
+  border-image: linear-gradient(-45deg, transparent 10%, $red 10%, $red 90%, transparent 90%) 18 fill / 15px;
+}
+
+.grey {
+  border-image: linear-gradient(-45deg, transparent 10%, $gray 10%, $gray 90%, transparent 90%) 18 fill / 15px;
+}
+
+.btn {
+  color: white;
+  background: none;
+  width: 101px;
+  height: 38px;
+}
+
+.btn:hover {
+  transform: translateY(-5px);
+}
+
+.tryItSection {
+  width: 575px;
+  height: 250px;
+  background-color: #232222;
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 28px;
+    text-align: left;
+    color: white;
+    margin-top: 0;
+    margin-left: 40px;
+  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  button {
+    margin-left: 40px;
+    margin-bottom: 18px;
+  }
+
+  img {
+    position: absolute;
+  }
+
+  .mjolnir {
+    margin-left: 430px;
+    margin-top: 25px;
+  }
+
+  .shield {
+    margin-left: 410px;
+    margin-top: 60px;
+  }
+}
+
+.tryItSectionTittle {
+  margin-top: 15px;
+}
+
+
+
+

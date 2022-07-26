@@ -1,0 +1,30 @@
+@import '../../styles/variables';
+
+.characterCardImgBox {
+  object-fit: cover;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.characterCard {
+  width: 200px;
+  height: 320px;
+  background-color: $cardBackground;
+  box-shadow: $shadow;
+  h2 {
+    color: white;
+    margin-top: 20px;
+    margin-left: 15px;
+  }
+  margin-bottom: 30px
+}
+
+.active {
+  box-shadow: $redShadow;
+  transition: 1s;
+  transform: translateY(-10px);
+}
+

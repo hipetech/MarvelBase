@@ -1,17 +1,18 @@
 import './randomHeroSection.scss';
+import '../../styles/style.scss';
 import React from 'react';
 import heroImg from '../../resources/heroImg.png';
 import mjolnir from '../../resources/mjolnir.png';
 import shield from '../../resources/shield.png';
+import ImageBox from '../imageBox/imageBox';
+import MarvelBtn from '../marvelBtn/marvelBtn';
 
 export default function RandomHeroSection() {
     return (
         <>
             <section className="randomHeroSection">
                 <div className="heroSection">
-                    <div className="imgBox">
-                        <img src={heroImg} alt="Random character"/>
-                    </div>
+                    <ImageBox imgPath={heroImg} alt={'Hero Img'} width={'180px'} height={'180px'} />
                     <div className="heroDescription">
                         <h2>
                             THOR
@@ -22,8 +23,8 @@ export default function RandomHeroSection() {
                             imbecile, he`s quite smart and compassionate...
                         </p>
                         <div className="btnBox">
-                            <button className={'btn red'}>HOMEPAGE</button>
-                            <button className={'btn grey'}>WIKI</button>
+                            <MarvelBtn title={'HOMEPAGE'} color={'r'}/>
+                            <MarvelBtn title={'WIKI'} color={'g'}/>
                         </div>
                     </div>
                 </div>
@@ -39,7 +40,7 @@ export default function RandomHeroSection() {
                     <h2>
                         Or choose another one
                     </h2>
-                    <button className={'btn red'}>TRY IT</button>
+                    <MarvelBtn title={'TRY IT'} color={'r'} />
                     <img className={'mjolnir'} src={mjolnir} alt="hummer"/>
                     <img className={'shield'} src={shield} alt="shield"/>
                 </div>

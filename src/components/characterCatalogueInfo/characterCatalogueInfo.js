@@ -4,6 +4,7 @@ import './../../styles/style.scss';
 import * as PropTypes from 'prop-types';
 import ImageBox from '../imageBox/imageBox';
 import MarvelBtn from '../marvelBtn/marvelBtn';
+import back from '../../resources/bg asset.png';
 
 export default function CharacterCatalogueInfo(props) {
     // eslint-disable-next-line no-unused-vars
@@ -41,6 +42,10 @@ export default function CharacterCatalogueInfo(props) {
                     }
                 </div>
             </section>
+            <div className="back">
+                <ImageBox imgPath={back} width={'467px'} height={'372px'} />
+            </div>
+
         </>
     );
 }

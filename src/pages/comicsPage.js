@@ -1,11 +1,13 @@
-import React, {Fragment} from 'react';
+import React from 'react';
+import Banner from '../components/banner/banner';
+import ComicsCatalogue from '../components/comicsCatalogue/comicsCatalogue';
 
 export default function ComicsPage() {
+
     return (
-        <Fragment>
-            <h2>
-                Comics Page
-            </h2>
-        </Fragment>
+        <>
+            <Banner />
+            <ComicsCatalogue />
+        </>
     );
 }

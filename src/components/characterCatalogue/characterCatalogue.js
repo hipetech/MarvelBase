@@ -24,7 +24,7 @@ export default function CharacterCatalogue(props) {
                 {characters.map((el, index) => {
                     return <CharacterCard imgPath={el.imgPath} title={el.title} key={index}/>;
                 })}
-                <div className="characterCatalogueBtnBox">
+                <div className="loadMoreBtnBox">
                     <MarvelBtn title={'LOAD MORE'} color={'r'} />
                 </div>
             </section>

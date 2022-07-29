@@ -1,0 +1,11 @@
+.comicsCatalogue {
+  display: grid;
+  grid-template-columns: repeat(4, 250px);
+  grid-column-gap: 69px;
+  grid-row-gap: 55px;
+}
+
+.btnMargin {
+  margin-top: 45px;
+  margin-bottom: 50px;
+}

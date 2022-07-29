@@ -47,3 +47,11 @@
 .characterCatalogueHeading {
   display: flex;
 }
+
+.back {
+  position: absolute;
+  margin-top: 42%;
+  margin-left: 45%;
+  z-index: -1;
+}
+

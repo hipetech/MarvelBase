@@ -6,27 +6,28 @@ import shield from '../../resources/shield.png';
 import ImageBox from '../imageBox/imageBox';
 import MarvelBtn from '../marvelBtn/marvelBtn';
 import {MarvelService} from '../../services/MarvelService';
+import Spinner from '../spinner/spinner';
+import Error from '../error/error';
 
 export default function RandomHeroSection() {
     const [state, setState] = useState({
-        char: {
-            name: '',
-            description: '',
-            thumbnail: '',
-            homepage: '',
-            wiki: ''
-        }
+        name: '',
+        description: '',
+        thumbnail: '',
+        homepage: '',
+        wiki: ''
     });
+    const [isLoad, setIsLoad] = useState(false);
+    const [error, setError] = useState(false);
 
     const btnLink = (link) => {
         window.location.href = link;
     };
 
-    const marvelService = new MarvelService();
-
     const onCharLoaded = (char) => {
         char.description = descriptionCheck(char.description);
         setState(char);
+        setIsLoad(true);
     };
 
     const descriptionCheck = (description) => {
@@ -34,11 +35,48 @@ export default function RandomHeroSection() {
         return description.slice(0, 210);
     };
 
+    const onError = () => {
+        setIsLoad(true);
+        setError(true);
+    };
+
     const updateChar = () => {
+        setIsLoad(false);
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
-        marvelService
+        new MarvelService()
             .getCharacterById(id)
-            .then(onCharLoaded);
+            .then(onCharLoaded)
+            .catch(onError);
+    };
+
+    const charInfo = () =>  {
+        return (
+            <>
+                <ImageBox imgPath={state.thumbnail} alt={'Hero Img'} width={'180px'} height={'180px'}/>
+                <div className="heroDescription">
+                    <h2>
+                        {state.name}
+                    </h2>
+                    <p>
+                        {state.description}
+                    </p>
+                    <div className="btnBox">
+                        <MarvelBtn title={'HOMEPAGE'} color={'r'} onClick={() => {
+                            btnLink(state.homepage);
+                        }}/>
+                        <MarvelBtn title={'WIKI'} color={'g'} href={state.wiki} onClick={() => {
+                            btnLink(state.wiki);
+                        }}/>
+                    </div>
+                </div>
+            </>
+        );
+    };
+
+    const renderContent = () => {
+        if (error) return <Error />;
+        else if (!isLoad) return <Spinner />;
+        else return charInfo();
     };
 
     useEffect(updateChar, []);
@@ -47,23 +85,9 @@ export default function RandomHeroSection() {
         <>
             <section className="randomHeroSection">
                 <div className="heroSection">
-                    <ImageBox imgPath={state.thumbnail} alt={'Hero Img'} width={'180px'} height={'180px'} />
-                    <div className="heroDescription">
-                        <h2>
-                            {state.name}
-                        </h2>
-                        <p>
-                            {state.description}
-                        </p>
-                        <div className="btnBox">
-                            <MarvelBtn title={'HOMEPAGE'} color={'r'} onClick={() => {
-                                btnLink(state.homepage);
-                            }}/>
-                            <MarvelBtn title={'WIKI'} color={'g'} href={state.wiki} onClick={() => {
-                                btnLink(state.wiki);
-                            }}/>
-                        </div>
-                    </div>
+                    {
+                        renderContent()
+                    }
                 </div>
                 <div className="tryItSection">
                     <div className={'tryItSectionTittle'}>
@@ -85,4 +109,6 @@ export default function RandomHeroSection() {
         </>
     );
 }
+
+
 

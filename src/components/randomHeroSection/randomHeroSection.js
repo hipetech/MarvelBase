@@ -1,31 +1,93 @@
 import './randomHeroSection.scss';
-import React from 'react';
-import heroImg from '../../resources/heroImg.png';
+import '../../styles/style.scss';
+import React, {useEffect, useState} from 'react';
 import mjolnir from '../../resources/mjolnir.png';
 import shield from '../../resources/shield.png';
+import ImageBox from '../imageBox/imageBox';
+import MarvelBtn from '../marvelBtn/marvelBtn';
+import {MarvelService} from '../../services/MarvelService';
+import Spinner from '../spinner/spinner';
+import Error from '../error/error';
 
 export default function RandomHeroSection() {
+    const [state, setState] = useState({
+        name: '',
+        description: '',
+        thumbnail: '',
+        homepage: '',
+        wiki: ''
+    });
+    const [isLoad, setIsLoad] = useState(false);
+    const [error, setError] = useState(false);
+
+    const btnLink = (link) => {
+        window.location.href = link;
+    };
+
+    const onCharLoaded = (char) => {
+        char.description = descriptionCheck(char.description);
+        setState(char);
+        setIsLoad(true);
+    };
+
+    const descriptionCheck = (description) => {
+        if (description.length === 0) return 'No character description';
+        return description.slice(0, 210);
+    };
+
+    const onError = () => {
+        setIsLoad(true);
+        setError(true);
+    };
+
+    const updateChar = () => {
+        setIsLoad(false);
+        const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
+        new MarvelService()
+            .getCharacterById(id)
+            .then(onCharLoaded)
+            .catch(onError);
+    };
+
+    const charInfo = () =>  {
+        return (
+            <>
+                <ImageBox imgPath={state.thumbnail} alt={'Hero Img'} width={'180px'} height={'180px'}/>
+                <div className="heroDescription">
+                    <h2>
+                        {state.name}
+                    </h2>
+                    <p>
+                        {state.description}
+                    </p>
+                    <div className="btnBox">
+                        <MarvelBtn title={'HOMEPAGE'} color={'r'} onClick={() => {
+                            btnLink(state.homepage);
+                        }}/>
+                        <MarvelBtn title={'WIKI'} color={'g'} href={state.wiki} onClick={() => {
+                            btnLink(state.wiki);
+                        }}/>
+                    </div>
+                </div>
+            </>
+        );
+    };
+
+    const renderContent = () => {
+        if (error) return <Error />;
+        else if (!isLoad) return <Spinner />;
+        else return charInfo();
+    };
+
+    useEffect(updateChar, []);
+
     return (
         <>
             <section className="randomHeroSection">
                 <div className="heroSection">
-                    <div className="imgBox">
-                        <img src={heroImg} alt="Random character"/>
-                    </div>
-                    <div className="heroDescription">
-                        <h2>
-                            THOR
-                        </h2>
-                        <p>
-                            As the Norse God of thunder and lightning, Thor wields one of the greatest weapons ever made,
-                            the enchanted hammer Mjolnir. While others have described Thor as an over-muscled, oafish
-                            imbecile, he`s quite smart and compassionate...
-                        </p>
-                        <div className="btnBox">
-                            <button className={'btn red'}>HOMEPAGE</button>
-                            <button className={'btn grey'}>WIKI</button>
-                        </div>
-                    </div>
+                    {
+                        renderContent()
+                    }
                 </div>
                 <div className="tryItSection">
                     <div className={'tryItSectionTittle'}>
@@ -39,7 +101,7 @@ export default function RandomHeroSection() {
                     <h2>
                         Or choose another one
                     </h2>
-                    <button className={'btn red'}>TRY IT</button>
+                    <MarvelBtn title={'TRY IT'} color={'r'} onClick={updateChar}/>
                     <img className={'mjolnir'} src={mjolnir} alt="hummer"/>
                     <img className={'shield'} src={shield} alt="shield"/>
                 </div>
@@ -47,4 +109,6 @@ export default function RandomHeroSection() {
         </>
     );
 }
+
+
 

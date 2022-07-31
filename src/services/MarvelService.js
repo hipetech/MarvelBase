@@ -1,4 +1,9 @@
+import config from './config.json';
+
 export class MarvelService {
+    getCharacterUrl = config['characterUrl'];
+    apiKey = config['apiKey'];
+
     getResource = async (url) => {
         let res = await fetch(url);
 
@@ -8,12 +13,25 @@ export class MarvelService {
         return await res.json();
     };
 
-    _getAllCharactersUrl = 'https://gateway.marvel.com:443/v1/public/characters?limit=9&offset=210&apikey=ce81ad1cb9bf03ca43125025476adc9e';
-    getAllCharacters = () => {
-        return this.getResource(this._getAllCharactersUrl);
+
+    getAllCharacters = async () => {
+        const res = await this.getResource(`${this.getCharacterUrl}characters?limit=9&offset=210&${this.apiKey}`);
+        return res.data.results.map(this._transformCharacter);
     };
 
-    getCharacterById = (id) => {
-        return this.getResource(`https://gateway.marvel.com:443/v1/public/characters/${id}?apikey=ce81ad1cb9bf03ca43125025476adc9e`);
+    getCharacterById = async (id) => {
+        const getCharacterByIdUrl = `${this.getCharacterUrl}characters/${id}?${this.apiKey}`;
+        const res = await this.getResource(getCharacterByIdUrl);
+        return this._transformCharacter(res.data.results[0]);
+    };
+
+    _transformCharacter = (res) => {
+        return {
+            name: res.name,
+            description: res.description,
+            thumbnail: res.thumbnail.path + '.' + res.thumbnail.extension,
+            homepage: res.urls[0].url,
+            wiki: res.urls[1].url
+        };
     };
 }

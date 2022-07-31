@@ -1,0 +1,15 @@
+@import "../../styles/variables";
+
+.error {
+  height: 200px;
+  h2 {
+    color: white;
+    width: 80%;
+  }
+  background-image: url("error.gif");
+  background-position: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

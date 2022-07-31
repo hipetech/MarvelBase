@@ -1,23 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import './characterCatalogue.scss';
+import './../../styles/style.scss';
 import CharacterCard from '../characterCard/characterCard';
+import * as PropTypes from 'prop-types';
+import MarvelBtn from '../marvelBtn/marvelBtn';
 
-export default function CharacterCatalogue() {
-    const [characters] = useState([
-        {imgPath: './loki.png', title: 'loki'},
-        {imgPath: './loki.png', title: 'loki'},
-        {imgPath: './loki.png', title: 'loki'},
-        {imgPath: './loki.png', title: 'loki'},
-        {imgPath: './loki.png', title: 'loki'},
-        {imgPath: './loki.png', title: 'loki'},
-        {imgPath: './loki.png', title: 'loki'},
-        {imgPath: './loki.png', title: 'loki'},
-        {imgPath: './loki.png', title: 'loki'}
-    ]);
+export default function CharacterCatalogue(props) {
+    let {characters} = props;
+
 
     const setActive = (id) => {
         const elem = document.querySelector('.characterCatalogue').children;
-        elem[id].classList.add('active');
+        elem[id].classList.add('activeCard');
     };
 
     useEffect(() => {
@@ -30,7 +24,12 @@ export default function CharacterCatalogue() {
                 {characters.map((el, index) => {
                     return <CharacterCard imgPath={el.imgPath} title={el.title} key={index}/>;
                 })}
+                <div className="loadMoreBtnBox">
+                    <MarvelBtn title={'LOAD MORE'} color={'r'} />
+                </div>
             </section>
         </>
     );
 }
+
+CharacterCatalogue.propTypes = {characters: PropTypes.array};

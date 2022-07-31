@@ -1,19 +1,21 @@
 import React from 'react';
 import './navigationBar.scss';
+import {Link, NavLink, Outlet} from 'react-router-dom';
 
 export default function NavigationBar() {
     return (
         <>
             <header>
-                <a href="#" className={'marvelTittle'}>
-                    <span className={'activeRed'}>Marvel</span> information portal
-                </a>
+                <Link to='/' className={'marvelTittle'}>
+                    <span className={'active'}>Marvel</span> information portal
+                </Link>
                 <nav className={'navigation'}>
-                    <a className={'navigationLink'} href="#">Characters</a>
+                    <NavLink to='/' className={'navigationLink'}>Characters</NavLink>
                     /
-                    <a className={'navigationLink'} href="#">Comics</a>
+                    <NavLink to='comics' className={'navigationLink'}>Comics</NavLink>
                 </nav>
             </header>
+            <Outlet />
         </>
     );
 }

@@ -1,30 +1,67 @@
 import './randomHeroSection.scss';
 import '../../styles/style.scss';
-import React from 'react';
-import heroImg from '../../resources/heroImg.png';
+import React, {useEffect, useState} from 'react';
 import mjolnir from '../../resources/mjolnir.png';
 import shield from '../../resources/shield.png';
 import ImageBox from '../imageBox/imageBox';
 import MarvelBtn from '../marvelBtn/marvelBtn';
+import {MarvelService} from '../../services/MarvelService';
 
 export default function RandomHeroSection() {
+    const [state, setState] = useState({
+        char: {
+            name: '',
+            description: '',
+            thumbnail: '',
+            homepage: '',
+            wiki: ''
+        }
+    });
+
+    const btnLink = (link) => {
+        window.location.href = link;
+    };
+
+    const marvelService = new MarvelService();
+
+    const onCharLoaded = (char) => {
+        char.description = descriptionCheck(char.description);
+        setState(char);
+    };
+
+    const descriptionCheck = (description) => {
+        if (description.length === 0) return 'No character description';
+        return description.slice(0, 210);
+    };
+
+    const updateChar = () => {
+        const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
+        marvelService
+            .getCharacterById(id)
+            .then(onCharLoaded);
+    };
+
+    useEffect(updateChar, []);
+
     return (
         <>
             <section className="randomHeroSection">
                 <div className="heroSection">
-                    <ImageBox imgPath={heroImg} alt={'Hero Img'} width={'180px'} height={'180px'} />
+                    <ImageBox imgPath={state.thumbnail} alt={'Hero Img'} width={'180px'} height={'180px'} />
                     <div className="heroDescription">
                         <h2>
-                            THOR
+                            {state.name}
                         </h2>
                         <p>
-                            As the Norse God of thunder and lightning, Thor wields one of the greatest weapons ever made,
-                            the enchanted hammer Mjolnir. While others have described Thor as an over-muscled, oafish
-                            imbecile, he`s quite smart and compassionate...
+                            {state.description}
                         </p>
                         <div className="btnBox">
-                            <MarvelBtn title={'HOMEPAGE'} color={'r'}/>
-                            <MarvelBtn title={'WIKI'} color={'g'}/>
+                            <MarvelBtn title={'HOMEPAGE'} color={'r'} onClick={() => {
+                                btnLink(state.homepage);
+                            }}/>
+                            <MarvelBtn title={'WIKI'} color={'g'} href={state.wiki} onClick={() => {
+                                btnLink(state.wiki);
+                            }}/>
                         </div>
                     </div>
                 </div>
@@ -40,7 +77,7 @@ export default function RandomHeroSection() {
                     <h2>
                         Or choose another one
                     </h2>
-                    <MarvelBtn title={'TRY IT'} color={'r'} />
+                    <MarvelBtn title={'TRY IT'} color={'r'} onClick={updateChar}/>
                     <img className={'mjolnir'} src={mjolnir} alt="hummer"/>
                     <img className={'shield'} src={shield} alt="shield"/>
                 </div>

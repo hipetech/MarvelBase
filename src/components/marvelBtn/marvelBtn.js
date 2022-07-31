@@ -3,7 +3,7 @@ import './marvelBtn.scss';
 import './../../styles/variables.scss';
 import PropTypes from 'prop-types';
 
-export default function MarvelBtn({title, color = 'r'}) {
+export default function MarvelBtn({title, color = 'r', onClick}) {
 
     const [btnColor, setColor] = useState('');
 
@@ -25,7 +25,7 @@ export default function MarvelBtn({title, color = 'r'}) {
 
     return (
         <>
-            <button style={style} className={'btn'}>
+            <button style={style} className={'btn'} onClick={onClick}>
                 {title}
             </button>
         </>
@@ -34,5 +34,6 @@ export default function MarvelBtn({title, color = 'r'}) {
 
 MarvelBtn.propTypes = {
     title: PropTypes.string,
-    color: PropTypes.string
+    color: PropTypes.string,
+    onClick: PropTypes.func
 };

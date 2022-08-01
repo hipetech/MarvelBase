@@ -20,19 +20,21 @@ export default function RandomHeroSection() {
     const [isLoad, setIsLoad] = useState(false);
     const [error, setError] = useState(false);
 
+    const marvelService = new MarvelService();
+
     const btnLink = (link) => {
         window.location.href = link;
+    };
+
+    const descriptionCheck = (description) => {
+        if (description.length === 0) return 'No character description';
+        return description.slice(0, 210);
     };
 
     const onCharLoaded = (char) => {
         char.description = descriptionCheck(char.description);
         setState(char);
         setIsLoad(true);
-    };
-
-    const descriptionCheck = (description) => {
-        if (description.length === 0) return 'No character description';
-        return description.slice(0, 210);
     };
 
     const onError = () => {
@@ -43,13 +45,13 @@ export default function RandomHeroSection() {
     const updateChar = () => {
         setIsLoad(false);
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
-        new MarvelService()
+        marvelService
             .getCharacterById(id)
             .then(onCharLoaded)
             .catch(onError);
     };
 
-    const charInfo = () =>  {
+    const charInfo = () => {
         return (
             <>
                 <ImageBox imgPath={state.thumbnail} alt={'Hero Img'} width={'180px'} height={'180px'}/>
@@ -74,12 +76,15 @@ export default function RandomHeroSection() {
     };
 
     const renderContent = () => {
-        if (error) return <Error />;
-        else if (!isLoad) return <Spinner />;
+        if (error) return <Error/>;
+        else if (!isLoad) return <Spinner/>;
         else return charInfo();
     };
 
-    useEffect(updateChar, []);
+    useEffect(() => {
+        updateChar();
+
+    }, []);
 
     return (
         <>
@@ -101,7 +106,10 @@ export default function RandomHeroSection() {
                     <h2>
                         Or choose another one
                     </h2>
-                    <MarvelBtn title={'TRY IT'} color={'r'} onClick={updateChar}/>
+                    <MarvelBtn title={'TRY IT'} color={'r'} onClick={() => {
+                        setError(false);
+                        updateChar();
+                    }}/>
                     <img className={'mjolnir'} src={mjolnir} alt="hummer"/>
                     <img className={'shield'} src={shield} alt="shield"/>
                 </div>

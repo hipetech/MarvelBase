@@ -5,7 +5,7 @@ import './imageBox.scss';
 export default function ImageBox({imgPath, alt, width = 'auto', height = 'auto'}) {
     const style = {
         width: width,
-        height: height
+        height: height,
     };
 
     return (
@@ -22,5 +22,6 @@ ImageBox.propTypes = {
     imgPath: PropTypes.string,
     alt: PropTypes.string,
     width: PropTypes.string,
-    height: PropTypes.string
+    height: PropTypes.string,
+    objectFit: PropTypes.string
 };

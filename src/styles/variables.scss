@@ -5,6 +5,15 @@ $cardBackground: #232222;
 $shadow: 0 5px 12px rgba(0, 0, 0, .5);
 $redShadow: 0 5px 20px $red;
 
+//animations
+$placeholderGray: #C4C4C4;
+$placeholderAnimation: 2s linear 0s infinite alternate colorChangeToDarker;
+
+@keyframes colorChangeToDarker {
+  from {background-color: $placeholderGray;}
+  to {background-color: $gray;}
+}
+
 
 
 

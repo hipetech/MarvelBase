@@ -15,7 +15,9 @@ export class MarvelService {
 
 
     getAllCharacters = async () => {
-        const res = await this.getResource(`${this.getCharacterUrl}characters?limit=9&offset=210&${this.apiKey}`);
+        const randomOffset = Math.floor(Math.random() * 1550);
+        const url = `${this.getCharacterUrl}characters?orderBy=name&limit=9&offset=${randomOffset}&${this.apiKey}`;
+        const res = await this.getResource(url);
         return res.data.results.map(this._transformCharacter);
     };
 
@@ -31,7 +33,8 @@ export class MarvelService {
             description: res.description,
             thumbnail: res.thumbnail.path + '.' + res.thumbnail.extension,
             homepage: res.urls[0].url,
-            wiki: res.urls[1].url
+            wiki: res.urls[1].url,
+            comicsList: res['comics'].items
         };
     };
 }

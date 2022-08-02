@@ -1,8 +1,16 @@
-.characterCatalogue {
+@import "../../styles/variables";
+
+.catalogue {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+
+}
+
+.characterCatalogue {
   width: 675px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 240px);
+  grid-template-rows: repeat(3, 350px);
 }
 
 .loadMoreBtnBox {
@@ -17,4 +25,43 @@
   display: flex;
   justify-content: center;
 }
+
+.loadingPlaceholderCard {
+  box-shadow: $shadow;
+  width: 200px;
+  height: 320px;
+  padding: 10px;
+}
+
+.loadingPlaceholderImage {
+  width: 180px;
+  height: 180px;
+  animation: $placeholderAnimation;
+}
+
+.loadingPlaceholderLine {
+  width: 80%;
+  height: 20px;
+  animation: $placeholderAnimation;
+  margin-top: 15px;
+}
+
+.characterCatalogueError {
+  width: 675px;
+
+  img {
+    width: 222px;
+    height: 322.5px;
+  }
+
+  h2 {
+    color: $red;
+  }
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+
 

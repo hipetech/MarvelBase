@@ -9,6 +9,11 @@ import {MarvelService} from '../../services/MarvelService';
 import Spinner from '../spinner/spinner';
 import Error from '../error/error';
 
+const btnLink = (link) => {
+    window.location.href = link;
+};
+export {btnLink};
+
 export default function RandomHeroSection() {
     const [state, setState] = useState({
         name: '',
@@ -19,12 +24,6 @@ export default function RandomHeroSection() {
     });
     const [isLoad, setIsLoad] = useState(false);
     const [error, setError] = useState(false);
-
-    const marvelService = new MarvelService();
-
-    const btnLink = (link) => {
-        window.location.href = link;
-    };
 
     const descriptionCheck = (description) => {
         if (description.length === 0) return 'No character description';
@@ -45,7 +44,7 @@ export default function RandomHeroSection() {
     const updateChar = () => {
         setIsLoad(false);
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
-        marvelService
+        new MarvelService()
             .getCharacterById(id)
             .then(onCharLoaded)
             .catch(onError);
@@ -81,10 +80,7 @@ export default function RandomHeroSection() {
         else return charInfo();
     };
 
-    useEffect(() => {
-        updateChar();
-
-    }, []);
+    useEffect(updateChar, []);
 
     return (
         <>
@@ -117,6 +113,8 @@ export default function RandomHeroSection() {
         </>
     );
 }
+
+
 
 
 

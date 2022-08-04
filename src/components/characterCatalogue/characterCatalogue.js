@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './characterCatalogue.scss';
 import './../../styles/style.scss';
 import CharacterCard from '../characterCard/characterCard';
 import * as PropTypes from 'prop-types';
 import MarvelBtn from '../marvelBtn/marvelBtn';
 import errorImg from '../../resources/charCatalogueErrorImg.png';
+
 
 export default function CharacterCatalogue({
     charList,
@@ -16,15 +17,9 @@ export default function CharacterCatalogue({
     increaseCharList
 }) {
 
+    const [selectedCardIndex, setSelectedCardIndex] = useState(null);
 
-    const setActive = (e) => {
-        document.querySelectorAll('.characterCard')
-            .forEach(el => el.classList.remove('activeCard'));
-        e.currentTarget.classList.add('activeCard');
-    };
-
-    const chooseChar = (e, el) => {
-        setActive(e);
+    const selectChar = (el) => {
         setActiveChar({
             name: el.name,
             description: el.description,
@@ -41,8 +36,16 @@ export default function CharacterCatalogue({
                 <section className="characterCatalogue">
                     {
                         charList.map((el, index) => {
-                            return <CharacterCard imgPath={el.thumbnail} title={el.name} key={index}
-                                onClick={(e) => chooseChar(e, el)}/>;
+                            return <CharacterCard
+                                imgPath={el.thumbnail}
+                                title={el.name}
+                                key={index}
+                                selectedCardIndex={selectedCardIndex}
+                                index={index}
+                                onClick={() => {
+                                    selectChar(el);
+                                    setSelectedCardIndex(index);
+                                }}/>;
                         })
                     }
                     {
@@ -92,7 +95,7 @@ export default function CharacterCatalogue({
                 <section className="characterCatalogueError">
                     <img src={errorImg} alt="RandomCharError image"/>
                     <h2>
-                        RandomCharError :(, we get some troubles!
+                        Error:( we get some troubles!
                     </h2>
                 </section>
             </>
@@ -102,7 +105,7 @@ export default function CharacterCatalogue({
     const renderCatalogue = () => {
         if (isLoading) return <CharacterCatalogue/>;
         else if (isError) return <CharacterCatalogueError/>;
-        return <LoadingPlaceholder />;
+        return <LoadingPlaceholder/>;
     };
 
     return (

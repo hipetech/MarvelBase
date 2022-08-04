@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './chatacterCatalogueInfo.scss';
 import './../../styles/style.scss';
 import * as PropTypes from 'prop-types';
@@ -7,13 +7,15 @@ import MarvelBtn from '../marvelBtn/marvelBtn';
 import back from '../../resources/bg asset.png';
 import {btnLink} from '../randomHeroSection/randomHeroSection';
 
+
 export default function CharacterCatalogueInfo(props) {
     let {imgPath, title, description, comicsList, wiki, homepage} = props;
+    const [isFixed] = useState(false);
 
     const CharInfo = () => {
         return (
             <>
-                <div className="characterCatalogueHeading">
+                <div className={`characterCatalogueHeading ${isFixed ? '': ''}`}>
                     <ImageBox imgPath={imgPath} alt={'Character Image'} width={'150px'} height={'150px'} />
                     <div className="titleAndButton">
                         <h2>
@@ -63,7 +65,6 @@ export default function CharacterCatalogueInfo(props) {
                         <div className="bigLine"></div>
                     </div>
                 </section>
-
             </>
         );
     };
@@ -73,6 +74,11 @@ export default function CharacterCatalogueInfo(props) {
         return <CharInfo />;
     };
 
+    useEffect(() => {
+        const element = document.querySelector('.characterCatalogueInfo');
+        let rect = element.getBoundingClientRect();
+        if (rect.y === 77) console.log('done');
+    });
 
     return (
         <>

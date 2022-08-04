@@ -1,6 +1,7 @@
 @import '../../styles/variables';
 
 .characterCard {
+  transition: 0.7s;
   width: 200px;
   height: 320px;
   background-color: $cardBackground;
@@ -10,8 +11,6 @@
     margin-top: 20px;
     font-size: 18px;
   }
-
-  transition: 0.7s;
   transform: translateY(0px);
   margin-bottom: 30px;
 }
@@ -23,8 +22,8 @@
 }
 
 .activeCard {
-  box-shadow: $redShadow;
   transition: 0.7s;
+  box-shadow: $redShadow;
   transform: translateY(-10px);
 }
 

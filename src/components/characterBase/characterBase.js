@@ -20,20 +20,22 @@ export default function CharacterBase() {
 
     const marvelService = new MarvelService();
 
+    const [charOffset, setCharOffset] = useState(marvelService.baseOffset + 9);
+
+    const onRequest = (onLoad, offset = marvelService.baseOffset) => {
+        marvelService
+            .getAllCharacters(offset)
+            .then(onLoad)
+            .catch(() => setIsError(true));
+    };
+
     const renderCharList = (res) => {
         setCharList(res);
         setIsLoading(true);
     };
 
-    const onRequest = (onLoad) => {
-        marvelService
-            .getAllCharacters()
-            .then(onLoad)
-            .catch(() => setIsError(true));
-    };
-
     const updateCharList = () => {
-        onRequest((res) => renderCharList(res));
+        onRequest(renderCharList);
     };
 
     const renderIncreasedCharList = (res) => {
@@ -42,8 +44,8 @@ export default function CharacterBase() {
     };
 
     const increaseCharList = () => {
-        marvelService.baseOffset += 9;
-        onRequest(renderIncreasedCharList);
+        onRequest(renderIncreasedCharList, charOffset);
+        setCharOffset(charOffset + 9);
     };
 
     useEffect(updateCharList, []);

@@ -7,7 +7,7 @@ import ImageBox from '../imageBox/imageBox';
 import MarvelBtn from '../marvelBtn/marvelBtn';
 import {MarvelService} from '../../services/MarvelService';
 import Spinner from '../spinner/spinner';
-import Error from '../error/error';
+
 
 const btnLink = (link) => {
     window.location.href = link;
@@ -50,34 +50,42 @@ export default function RandomHeroSection() {
             .catch(onError);
     };
 
-    const charInfo = () => {
-        return (
-            <>
-                <ImageBox imgPath={state.thumbnail} alt={'Hero Img'} width={'180px'} height={'180px'}/>
-                <div className="heroDescription">
-                    <h2>
-                        {state.name}
-                    </h2>
-                    <p>
-                        {state.description}
-                    </p>
-                    <div className="btnBox">
-                        <MarvelBtn title={'HOMEPAGE'} color={'r'} onClick={() => {
-                            btnLink(state.homepage);
-                        }}/>
-                        <MarvelBtn title={'WIKI'} color={'g'} href={state.wiki} onClick={() => {
-                            btnLink(state.wiki);
-                        }}/>
-                    </div>
+    const CharInfo = () => (
+        <>
+            <ImageBox imgPath={state.thumbnail} alt={'Hero Img'} width={'180px'} height={'180px'}/>
+            <div className="heroDescription">
+                <h2>
+                    {state.name}
+                </h2>
+                <p>
+                    {state.description}
+                </p>
+                <div className="btnBox">
+                    <MarvelBtn title={'HOMEPAGE'} color={'r'} onClick={() => {
+                        btnLink(state.homepage);
+                    }}/>
+                    <MarvelBtn title={'WIKI'} color={'g'} href={state.wiki} onClick={() => {
+                        btnLink(state.wiki);
+                    }}/>
                 </div>
-            </>
-        );
-    };
+            </div>
+        </>
+    );
+
+    const RandomCharError = () => (
+        <>
+            <section className="error">
+                <h2>
+                    Sorry, we get some troubles, try to reload your page or try it later :(
+                </h2>
+            </section>
+        </>
+    );
 
     const renderContent = () => {
-        if (error) return <Error/>;
-        else if (!isLoad) return <Spinner/>;
-        else return charInfo();
+        if (error) return <RandomCharError />;
+        else if (!isLoad) return <Spinner />;
+        else return <CharInfo />;
     };
 
     useEffect(updateChar, []);

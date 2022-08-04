@@ -10,7 +10,7 @@ import {btnLink} from '../randomHeroSection/randomHeroSection';
 export default function CharacterCatalogueInfo(props) {
     let {imgPath, title, description, comicsList, wiki, homepage} = props;
 
-    const charInfo = () => {
+    const CharInfo = () => {
         return (
             <>
                 <div className="characterCatalogueHeading">
@@ -26,14 +26,14 @@ export default function CharacterCatalogueInfo(props) {
                     </div>
                 </div>
                 <p>
-                    {description.length === 0 ? 'There is no character description' : description}
+                    {description}
                 </p>
                 <h3>
                     {comicsList.length === 0 ? '' : 'Comics:'}
                 </h3>
                 <div className="comicsList">
                     {
-                        comicsList.map((elem, index) => {
+                        comicsList.slice(0, 10).map((elem, index) => {
                             return (
                                 <p key={index}>
                                     {elem.name}
@@ -46,7 +46,7 @@ export default function CharacterCatalogueInfo(props) {
         );
     };
 
-    const infoPlaceholder = () => {
+    const InfoPlaceholder = () => {
         return (
             <>
                 <section className="infoPlaceholder">
@@ -69,8 +69,8 @@ export default function CharacterCatalogueInfo(props) {
     };
 
     const renderContent = () => {
-        if (imgPath === '' && title === '') return infoPlaceholder();
-        return charInfo();
+        if (imgPath === '' && title === '') return <InfoPlaceholder />;
+        return <CharInfo />;
     };
 
 

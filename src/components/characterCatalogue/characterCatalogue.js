@@ -6,7 +6,16 @@ import * as PropTypes from 'prop-types';
 import MarvelBtn from '../marvelBtn/marvelBtn';
 import errorImg from '../../resources/charCatalogueErrorImg.png';
 
-export default function CharacterCatalogue({charList, setActiveChar, isLoading, isError}) {
+export default function CharacterCatalogue({
+    charList,
+    setActiveChar,
+    isLoading,
+    isError,
+    isIncreaseCharList,
+    setIsIncreaseCharList,
+    increaseCharList
+}) {
+
 
     const setActive = (e) => {
         document.querySelectorAll('.characterCard')
@@ -26,7 +35,7 @@ export default function CharacterCatalogue({charList, setActiveChar, isLoading, 
         });
     };
 
-    const characterCatalogue = () => {
+    const CharacterCatalogue = () => {
         return (
             <>
                 <section className="characterCatalogue">
@@ -36,9 +45,15 @@ export default function CharacterCatalogue({charList, setActiveChar, isLoading, 
                                 onClick={(e) => chooseChar(e, el)}/>;
                         })
                     }
+                    {
+                        isIncreaseCharList ? <LoadingPlaceholder/> : null
+                    }
                 </section>
                 <div className="loadMoreBtnBox">
-                    <MarvelBtn title={'LOAD MORE'} color={'r'}/>
+                    <MarvelBtn title={'LOAD MORE'} color={'r'} onClick={() => {
+                        setIsIncreaseCharList(true);
+                        increaseCharList();
+                    }}/>
                 </div>
             </>
         );
@@ -46,7 +61,7 @@ export default function CharacterCatalogue({charList, setActiveChar, isLoading, 
 
     const renderPlaceholders = () => {
         let arr = [];
-        
+
         for (let i = 0; i < 9; i++) {
             arr.push(
                 <div className="loadingPlaceholderCard" key={i}>
@@ -59,7 +74,7 @@ export default function CharacterCatalogue({charList, setActiveChar, isLoading, 
         return arr;
     };
 
-    const loadingPlaceholder = () => {
+    const LoadingPlaceholder = () => {
         return (
             <>
                 <section className="characterCatalogue">
@@ -71,13 +86,13 @@ export default function CharacterCatalogue({charList, setActiveChar, isLoading, 
         );
     };
 
-    const characterCatalogueError = () => {
+    const CharacterCatalogueError = () => {
         return (
             <>
                 <section className="characterCatalogueError">
-                    <img src={errorImg} alt="Error image"/>
+                    <img src={errorImg} alt="RandomCharError image"/>
                     <h2>
-                        Error :(, we get some troubles!
+                        RandomCharError :(, we get some troubles!
                     </h2>
                 </section>
             </>
@@ -85,9 +100,9 @@ export default function CharacterCatalogue({charList, setActiveChar, isLoading, 
     };
 
     const renderCatalogue = () => {
-        if (isLoading) return characterCatalogue();
-        else if (isError) return characterCatalogueError();
-        return loadingPlaceholder();
+        if (isLoading) return <CharacterCatalogue/>;
+        else if (isError) return <CharacterCatalogueError/>;
+        return <LoadingPlaceholder />;
     };
 
     return (
@@ -105,5 +120,8 @@ CharacterCatalogue.propTypes = {
     charList: PropTypes.array,
     setActiveChar: PropTypes.func,
     isLoading: PropTypes.bool,
-    isError: PropTypes.bool
+    isError: PropTypes.bool,
+    isIncreaseCharList: PropTypes.bool,
+    setIsIncreaseCharList: PropTypes.func,
+    increaseCharList: PropTypes.func
 };

@@ -16,18 +16,34 @@ export default function CharacterBase() {
     const [charList, setCharList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
+    const [isIncreaseCharList, setIsIncreaseCharList] = useState(false);
+
+    const marvelService = new MarvelService();
 
     const renderCharList = (res) => {
         setCharList(res);
         setIsLoading(true);
     };
 
+    const onRequest = (onLoad) => {
+        marvelService
+            .getAllCharacters()
+            .then(onLoad)
+            .catch(() => setIsError(true));
+    };
 
     const updateCharList = () => {
-        new MarvelService()
-            .getAllCharacters()
-            .then(renderCharList)
-            .catch(() => setIsError(true));
+        onRequest((res) => renderCharList(res));
+    };
+
+    const renderIncreasedCharList = (res) => {
+        setCharList([...charList, ...res]);
+        setIsIncreaseCharList(false);
+    };
+
+    const increaseCharList = () => {
+        marvelService.baseOffset += 9;
+        onRequest(renderIncreasedCharList);
     };
 
     useEffect(updateCharList, []);
@@ -40,6 +56,9 @@ export default function CharacterBase() {
                     setActiveChar={setActiveChar}
                     isLoading={isLoading}
                     isError={isError}
+                    isIncreaseCharList={isIncreaseCharList}
+                    setIsIncreaseCharList={setIsIncreaseCharList}
+                    increaseCharList={increaseCharList}
                 />
                 <CharacterCatalogueInfo
                     imgPath={activeChar.thumbnail}

@@ -3,6 +3,7 @@ import config from './config.json';
 export class MarvelService {
     getCharacterUrl = config['characterUrl'];
     apiKey = config['apiKey'];
+    baseOffset = 210;
 
     getResource = async (url) => {
         let res = await fetch(url);
@@ -14,9 +15,8 @@ export class MarvelService {
     };
 
 
-    getAllCharacters = async () => {
-        const randomOffset = Math.floor(Math.random() * 1550);
-        const url = `${this.getCharacterUrl}characters?orderBy=name&limit=9&offset=${randomOffset}&${this.apiKey}`;
+    getAllCharacters = async (offset = this.baseOffset) => {
+        const url = `${this.getCharacterUrl}characters?orderBy=name&limit=9&offset=${offset}&${this.apiKey}`;
         const res = await this.getResource(url);
         return res.data.results.map(this._transformCharacter);
     };

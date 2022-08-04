@@ -86,6 +86,20 @@ h2 {
   margin-top: 15px;
 }
 
+.error {
+  height: 200px;
+  h2 {
+    color: white;
+    width: 80%;
+  }
+  background-image: url("../../resources/randomCharErrorImg.gif");
+  background-position: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 
 

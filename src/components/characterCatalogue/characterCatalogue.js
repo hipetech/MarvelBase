@@ -68,12 +68,11 @@ export default function CharacterCatalogue({
         let arr = [];
 
         for (let i = 0; i < 9; i++) {
-            arr.push(
+            arr = [...arr, 
                 <div className="loadingPlaceholderCard" key={i}>
                     <div className="loadingPlaceholderImage"></div>
                     <div className="loadingPlaceholderLine"></div>
-                </div>
-            );
+                </div>];
         }
 
         return arr;

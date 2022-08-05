@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './chatacterCatalogueInfo.scss';
 import './../../styles/style.scss';
 import * as PropTypes from 'prop-types';
@@ -10,12 +10,11 @@ import {btnLink} from '../randomHeroSection/randomHeroSection';
 
 export default function CharacterCatalogueInfo(props) {
     let {imgPath, title, description, comicsList, wiki, homepage} = props;
-    const [isFixed] = useState(false);
 
     const CharInfo = () => {
         return (
             <>
-                <div className={`characterCatalogueHeading ${isFixed ? '': ''}`}>
+                <div className={'characterCatalogueHeading'}>
                     <ImageBox imgPath={imgPath} alt={'Character Image'} width={'150px'} height={'150px'} />
                     <div className="titleAndButton">
                         <h2>

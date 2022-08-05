@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import './chatacterCatalogueInfo.scss';
 import './../../styles/style.scss';
 import * as PropTypes from 'prop-types';
@@ -74,15 +74,9 @@ export default function CharacterCatalogueInfo(props) {
         return <CharInfo />;
     };
 
-    useEffect(() => {
-        const element = document.querySelector('.characterCatalogueInfo');
-        let rect = element.getBoundingClientRect();
-        if (rect.y === 77) console.log('done');
-    });
-
     return (
         <>
-            <section className="characterCatalogueInfo">
+            <section className="characterCatalogueInfo fixedWindow">
                 {
                     renderContent()
                 }

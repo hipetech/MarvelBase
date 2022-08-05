@@ -45,7 +45,9 @@ export default function CharacterCatalogue({
                                 onClick={() => {
                                     selectChar(el);
                                     setSelectedCardIndex(index);
-                                }}/>;
+                                }}
+                                tabIndex={index + 1}
+                            />;
                         })
                     }
                     {

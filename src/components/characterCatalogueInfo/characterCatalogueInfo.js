@@ -1,26 +1,29 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './chatacterCatalogueInfo.scss';
 import './../../styles/style.scss';
 import * as PropTypes from 'prop-types';
 import ImageBox from '../imageBox/imageBox';
 import MarvelBtn from '../marvelBtn/marvelBtn';
 import back from '../../resources/bg asset.png';
+import {btnLink} from '../randomHeroSection/randomHeroSection';
+
 
 export default function CharacterCatalogueInfo(props) {
-    // eslint-disable-next-line no-unused-vars
-    let {imgPath, title, description, comicsList} = props;
-    return (
-        <>
-            <section className="characterCatalogueInfo">
-                <div className="characterCatalogueHeading">
+    let {imgPath, title, description, comicsList, wiki, homepage} = props;
+    const [isFixed] = useState(false);
+
+    const CharInfo = () => {
+        return (
+            <>
+                <div className={`characterCatalogueHeading ${isFixed ? '': ''}`}>
                     <ImageBox imgPath={imgPath} alt={'Character Image'} width={'150px'} height={'150px'} />
                     <div className="titleAndButton">
                         <h2>
                             {title.toUpperCase()}
                         </h2>
                         <div className="characterCatalogueInfoBtnBox">
-                            <MarvelBtn title={'HOMEPAGE'} color={'r'}/>
-                            <MarvelBtn title={'WIKI'} color={'g'} />
+                            <MarvelBtn title={'HOMEPAGE'} color={'r'} onClick={() => btnLink(homepage)}/>
+                            <MarvelBtn title={'WIKI'} color={'g'} onClick={() => btnLink(wiki)}/>
                         </div>
                     </div>
                 </div>
@@ -28,24 +31,65 @@ export default function CharacterCatalogueInfo(props) {
                     {description}
                 </p>
                 <h3>
-                    Comics:
+                    {comicsList.length === 0 ? '' : 'Comics:'}
                 </h3>
                 <div className="comicsList">
                     {
-                        comicsList.map((elem, index) => {
+                        comicsList.slice(0, 10).map((elem, index) => {
                             return (
                                 <p key={index}>
-                                    {elem}
+                                    {elem.name}
                                 </p>
                             );
                         })
                     }
                 </div>
+            </>
+        );
+    };
+
+    const InfoPlaceholder = () => {
+        return (
+            <>
+                <section className="infoPlaceholder">
+                    <h2>
+                        Please select a character to see information
+                    </h2>
+                    <div className={'infoPlaceholderItemsHeader'}>
+                        <div className="icon"></div>
+                        <div className="smallLine"></div>
+                    </div>
+                    <div className="infoPlaceholderBody">
+                        <div className="bigLine"></div>
+                        <div className="bigLine"></div>
+                        <div className="bigLine"></div>
+                    </div>
+                </section>
+            </>
+        );
+    };
+
+    const renderContent = () => {
+        if (imgPath === '' && title === '') return <InfoPlaceholder />;
+        return <CharInfo />;
+    };
+
+    useEffect(() => {
+        const element = document.querySelector('.characterCatalogueInfo');
+        let rect = element.getBoundingClientRect();
+        if (rect.y === 77) console.log('done');
+    });
+
+    return (
+        <>
+            <section className="characterCatalogueInfo">
+                {
+                    renderContent()
+                }
             </section>
             <div className="back">
                 <ImageBox imgPath={back} width={'467px'} height={'372px'} />
             </div>
-
         </>
     );
 }
@@ -54,5 +98,7 @@ CharacterCatalogueInfo.propTypes = {
     imgPath: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.string,
-    comicsList: PropTypes.array
+    comicsList: PropTypes.array,
+    wiki: PropTypes.string,
+    homepage: PropTypes.string
 };

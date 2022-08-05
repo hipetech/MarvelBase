@@ -7,7 +7,12 @@ import ImageBox from '../imageBox/imageBox';
 import MarvelBtn from '../marvelBtn/marvelBtn';
 import {MarvelService} from '../../services/MarvelService';
 import Spinner from '../spinner/spinner';
-import Error from '../error/error';
+
+
+const btnLink = (link) => {
+    window.location.href = link;
+};
+export {btnLink};
 
 export default function RandomHeroSection() {
     const [state, setState] = useState({
@@ -20,19 +25,15 @@ export default function RandomHeroSection() {
     const [isLoad, setIsLoad] = useState(false);
     const [error, setError] = useState(false);
 
-    const btnLink = (link) => {
-        window.location.href = link;
+    const descriptionCheck = (description) => {
+        if (description.length === 0) return 'No character description';
+        return description.slice(0, 210);
     };
 
     const onCharLoaded = (char) => {
         char.description = descriptionCheck(char.description);
         setState(char);
         setIsLoad(true);
-    };
-
-    const descriptionCheck = (description) => {
-        if (description.length === 0) return 'No character description';
-        return description.slice(0, 210);
     };
 
     const onError = () => {
@@ -49,34 +50,42 @@ export default function RandomHeroSection() {
             .catch(onError);
     };
 
-    const charInfo = () =>  {
-        return (
-            <>
-                <ImageBox imgPath={state.thumbnail} alt={'Hero Img'} width={'180px'} height={'180px'}/>
-                <div className="heroDescription">
-                    <h2>
-                        {state.name}
-                    </h2>
-                    <p>
-                        {state.description}
-                    </p>
-                    <div className="btnBox">
-                        <MarvelBtn title={'HOMEPAGE'} color={'r'} onClick={() => {
-                            btnLink(state.homepage);
-                        }}/>
-                        <MarvelBtn title={'WIKI'} color={'g'} href={state.wiki} onClick={() => {
-                            btnLink(state.wiki);
-                        }}/>
-                    </div>
+    const CharInfo = () => (
+        <>
+            <ImageBox imgPath={state.thumbnail} alt={'Hero Img'} width={'180px'} height={'180px'}/>
+            <div className="heroDescription">
+                <h2>
+                    {state.name}
+                </h2>
+                <p>
+                    {state.description}
+                </p>
+                <div className="btnBox">
+                    <MarvelBtn title={'HOMEPAGE'} color={'r'} onClick={() => {
+                        btnLink(state.homepage);
+                    }}/>
+                    <MarvelBtn title={'WIKI'} color={'g'} href={state.wiki} onClick={() => {
+                        btnLink(state.wiki);
+                    }}/>
                 </div>
-            </>
-        );
-    };
+            </div>
+        </>
+    );
+
+    const RandomCharError = () => (
+        <>
+            <section className="error">
+                <h2>
+                    Sorry, we get some troubles, try to reload your page or try it later :(
+                </h2>
+            </section>
+        </>
+    );
 
     const renderContent = () => {
-        if (error) return <Error />;
+        if (error) return <RandomCharError />;
         else if (!isLoad) return <Spinner />;
-        else return charInfo();
+        else return <CharInfo />;
     };
 
     useEffect(updateChar, []);
@@ -101,7 +110,10 @@ export default function RandomHeroSection() {
                     <h2>
                         Or choose another one
                     </h2>
-                    <MarvelBtn title={'TRY IT'} color={'r'} onClick={updateChar}/>
+                    <MarvelBtn title={'TRY IT'} color={'r'} onClick={() => {
+                        setError(false);
+                        updateChar();
+                    }}/>
                     <img className={'mjolnir'} src={mjolnir} alt="hummer"/>
                     <img className={'shield'} src={shield} alt="shield"/>
                 </div>
@@ -109,6 +121,8 @@ export default function RandomHeroSection() {
         </>
     );
 }
+
+
 
 
 

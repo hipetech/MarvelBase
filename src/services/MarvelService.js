@@ -3,6 +3,7 @@ import config from './config.json';
 export class MarvelService {
     getCharacterUrl = config['characterUrl'];
     apiKey = config['apiKey'];
+    baseOffset = 210;
 
     getResource = async (url) => {
         let res = await fetch(url);
@@ -14,8 +15,9 @@ export class MarvelService {
     };
 
 
-    getAllCharacters = async () => {
-        const res = await this.getResource(`${this.getCharacterUrl}characters?limit=9&offset=210&${this.apiKey}`);
+    getAllCharacters = async (offset = this.baseOffset) => {
+        const url = `${this.getCharacterUrl}characters?orderBy=name&limit=9&offset=${offset}&${this.apiKey}`;
+        const res = await this.getResource(url);
         return res.data.results.map(this._transformCharacter);
     };
 
@@ -31,7 +33,8 @@ export class MarvelService {
             description: res.description,
             thumbnail: res.thumbnail.path + '.' + res.thumbnail.extension,
             homepage: res.urls[0].url,
-            wiki: res.urls[1].url
+            wiki: res.urls[1].url,
+            comicsList: res['comics'].items
         };
     };
 }

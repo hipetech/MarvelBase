@@ -11,6 +11,7 @@
     margin-bottom: 10px;
   }
   background-color: white;
+
 }
 
 .comicsList {
@@ -34,13 +35,17 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  margin-top: 30px;
 }
 
 .titleAndButton {
   margin-left: 25px;
+  width: 110px;
 
   h2 {
-    margin-bottom: 30px;
+    font-size: 18px;
+    width: 250px;
+    height: 25px;
   }
 }
 
@@ -54,4 +59,49 @@
   margin-left: 45%;
   z-index: -1;
 }
+
+.infoPlaceholder {
+  h2 {
+    font-size: 18px;
+    text-align: center;
+  }
+}
+
+.infoPlaceholderItemsHeader {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 360px;
+  animation: $placeholderAnimation;
+}
+
+.smallLine {
+  width: 355px;
+  height: 16px;
+  animation: $placeholderAnimation;
+}
+
+.infoPlaceholderBody {
+  height: 135px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.bigLine {
+  height: 35px;
+  width: 100%;
+  animation: $placeholderAnimation;
+}
+
+
+
 

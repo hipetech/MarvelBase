@@ -20,9 +20,9 @@ export default function CharacterBase() {
 
     const marvelService = new MarvelService();
 
-    const [charOffset, setCharOffset] = useState(marvelService.baseOffset + 9);
+    const [charOffset, setCharOffset] = useState(marvelService.baseCharOffset + 9);
 
-    const onRequest = (onLoad, offset = marvelService.baseOffset) => {
+    const onRequest = (onLoad, offset = marvelService.baseCharOffset) => {
         marvelService
             .getAllCharacters(offset)
             .then(onLoad)

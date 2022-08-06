@@ -1,4 +1,4 @@
 {
-  "characterUrl": "https://gateway.marvel.com:443/v1/public/",
+  "prefUrl": "https://gateway.marvel.com:443/v1/public/",
   "apiKey": "apikey=ce81ad1cb9bf03ca43125025476adc9e"
 }

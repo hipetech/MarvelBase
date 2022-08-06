@@ -45,7 +45,7 @@ export default function CharacterBase() {
 
     const increaseCharList = () => {
         onRequest(renderIncreasedCharList, charOffset);
-        setCharOffset(charOffset + 9);
+        setCharOffset(charOffset => charOffset + 9);
     };
 
     useEffect(getCharList, []);

@@ -95,7 +95,7 @@ export default function ComicsCatalogue() {
 
     const renderIncreasedComicItems = () => {
         onRequest(increaseComicsItems, comicOffset);
-        setComicOffset(comicOffset + 8);
+        setComicOffset(comicOffset => comicOffset + 8);
     };
 
     const renderComicsCatalogue = () => {

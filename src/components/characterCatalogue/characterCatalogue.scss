@@ -25,27 +25,6 @@
   justify-content: center;
 }
 
-.loadingPlaceholderCard {
-  box-shadow: $shadow;
-  width: 200px;
-  height: 320px;
-  padding: 10px;
-  margin-bottom: 30px;
-}
-
-.loadingPlaceholderImage {
-  width: 180px;
-  height: 180px;
-  animation: $placeholderAnimation;
-}
-
-.loadingPlaceholderLine {
-  width: 80%;
-  height: 20px;
-  animation: $placeholderAnimation;
-  margin-top: 15px;
-}
-
 .characterCatalogueError {
   width: 675px;
 

@@ -5,6 +5,7 @@ import CharacterCard from '../characterCard/characterCard';
 import * as PropTypes from 'prop-types';
 import MarvelBtn from '../marvelBtn/marvelBtn';
 import errorImg from '../../resources/charCatalogueErrorImg.png';
+import ItemPlaceholder from '../itemPlaceholder/itemPlaceholder';
 
 
 export default function CharacterCatalogue({
@@ -51,7 +52,7 @@ export default function CharacterCatalogue({
                         })
                     }
                     {
-                        isIncreaseCharList ? <LoadingPlaceholder/> : null
+                        isIncreaseCharList ? <Placeholders /> : null
                     }
                 </section>
                 <div className="loadMoreBtnBox">
@@ -64,30 +65,19 @@ export default function CharacterCatalogue({
         );
     };
 
-    const renderPlaceholders = () => {
+    const Placeholders = () => {
         let arr = [];
 
         for (let i = 0; i < 9; i++) {
-            arr = [...arr, 
-                <div className="loadingPlaceholderCard" key={i}>
-                    <div className="loadingPlaceholderImage"></div>
-                    <div className="loadingPlaceholderLine"></div>
-                </div>];
+            arr = [...arr, <ItemPlaceholder
+                key={i}
+                cardWidth={'200px'}
+                cardHeight={'320px'}
+                imgWidth={'180px'}
+                imgHeight={'180px'}/>];
         }
 
-        return arr;
-    };
-
-    const LoadingPlaceholder = () => {
-        return (
-            <>
-                <section className="characterCatalogue">
-                    {
-                        renderPlaceholders()
-                    }
-                </section>
-            </>
-        );
+        return <section className="characterCatalogue">{arr}</section>;
     };
 
     const CharacterCatalogueError = () => {
@@ -106,7 +96,7 @@ export default function CharacterCatalogue({
     const renderCatalogue = () => {
         if (isLoading) return <CharacterCatalogue/>;
         else if (isError) return <CharacterCatalogueError/>;
-        return <LoadingPlaceholder/>;
+        return <Placeholders />;
     };
 
     return (

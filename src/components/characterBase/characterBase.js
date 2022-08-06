@@ -34,7 +34,7 @@ export default function CharacterBase() {
         setIsLoading(true);
     };
 
-    const updateCharList = () => {
+    const getCharList = () => {
         onRequest(renderCharList);
     };
 
@@ -48,7 +48,7 @@ export default function CharacterBase() {
         setCharOffset(charOffset + 9);
     };
 
-    useEffect(updateCharList, []);
+    useEffect(getCharList, []);
 
     return (
         <>

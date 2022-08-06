@@ -32,7 +32,7 @@ export class MarvelService {
     };
 
     getAllCharacters = async (offset = this.baseCharOffset) => {
-        const res = await this._getData('characters?orderBy=name&limit=9&offset=$', offset);
+        const res = await this._getData('characters?orderBy=name&limit=9&offset=', offset);
         return res.data.results.map(this._transformCharacter);
     };
 
@@ -48,13 +48,14 @@ export class MarvelService {
             description: res.description,
             thumbnail: res.thumbnail.path + '.' + res.thumbnail.extension,
             pageCount: res.pageCount,
-            language: res['textObjects'].language,
-            price: res['prices'].price
+            language: res['textObjects'][0].language,
+            price: res['prices'][0].price
         };
     };
 
     getAllComics = async (offset = this.baseComicOffset) => {
-        const res = await this._getData('comics?format=comic&limit=8&offset=0', offset);
-        return res.data.results.map(this._transformComic());
+        const res = await this._getData('comics?orderBy=modified&limit=8&offset=', offset);
+        console.log(offset);
+        return res.data.results.map(this._transformComic);
     };
 }

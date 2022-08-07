@@ -6,6 +6,7 @@ import {MarvelService} from '../../services/MarvelService';
 import ItemPlaceholder from '../itemPlaceholder/itemPlaceholder';
 import ImageBox from '../imageBox/imageBox';
 import ErrorImg from '../../resources/comicsCatalogueErrorImg.png';
+import {Link} from 'react-router-dom';
 
 export default function ComicsCatalogue() {
     const [comicsItems, setComicsItems] = useState([]);
@@ -39,8 +40,9 @@ export default function ComicsCatalogue() {
                 {
                     comicsItems.map((el, index) => {
                         return (
-                            <ComicsItem imgPath={el.thumbnail} title={el.title} price={el.price} key={index}
-                                tabIndex={index + 1}/>
+                            <Link to={`/comic/${el.title.split(' ').join('')}`} key={index} style={{width: '225px'}}>
+                                <ComicsItem imgPath={el.thumbnail} title={el.title} price={el.price} />
+                            </Link>
                         );
                     })
                 }

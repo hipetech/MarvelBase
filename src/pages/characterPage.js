@@ -4,6 +4,7 @@ import CharacterBase from '../components/characterBase/characterBase';
 import ErrorBoundary from '../components/errorBoundary/errorBoundary';
 
 export default function CharacterPage() {
+
     return (
         <>
             <ErrorBoundary>

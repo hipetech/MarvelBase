@@ -24,7 +24,7 @@ export default function CharacterCatalogueInfo(props) {
                         <div className="characterCatalogueInfoBtnBox">
                             <MarvelBtn title={'HOMEPAGE'} color={'r'} onClick={() => btnLink(homepage)}/>
                             <MarvelBtn title={'WIKI'} color={'g'} onClick={() => btnLink(wiki)}/>
-                            <Link to={`/character/${title.split(' ').join('')}`}>
+                            <Link to={`/character/${title.split(' ').join('')}`} state={props}>
                                 <MarvelBtn title={'CHARACTER PAGE'} />
                             </Link>
                         </div>

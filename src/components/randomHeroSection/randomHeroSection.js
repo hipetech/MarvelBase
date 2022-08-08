@@ -7,6 +7,7 @@ import ImageBox from '../imageBox/imageBox';
 import MarvelBtn from '../marvelBtn/marvelBtn';
 import {MarvelService} from '../../services/MarvelService';
 import Spinner from '../spinner/spinner';
+import {Link} from 'react-router-dom';
 
 
 const btnLink = (link) => {
@@ -67,6 +68,13 @@ export default function RandomHeroSection() {
                     <MarvelBtn title={'WIKI'} color={'g'} href={state.wiki} onClick={() => {
                         btnLink(state.wiki);
                     }}/>
+                    <Link to={`/character/${state.name.split(' ').join('')}`} state={{
+                        imgPath: state.thumbnail,
+                        title: state.name,
+                        description: state.description
+                    }}>
+                        <MarvelBtn title={'CHARACTER PAGE'} />
+                    </Link>
                 </div>
             </div>
         </>

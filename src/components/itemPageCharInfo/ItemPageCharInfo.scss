@@ -1,0 +1,22 @@
+.itemPageCharInfo {
+  width: 100%;
+  display: flex;
+}
+
+.itemPageCharImage {
+  margin-right: 50px;
+}
+
+.charInfo {
+  display: flex;
+  flex-direction: column;
+  width: 550px;
+  p {
+    margin-top: 25px;
+    font-size: 18px;
+  }
+}
+
+.itemPageLink {
+  margin-left: 185px;
+}

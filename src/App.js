@@ -2,7 +2,7 @@ import React from 'react';
 import './App.scss';
 import NavigationBar from './components/navigationBar/navigationBar';
 import {Route, Routes} from 'react-router-dom';
-import CharacterPage from './pages/characterPage';
+import CharactersPage from './pages/charactersPage';
 import ComicsPage from './pages/comicsPage';
 import ItemPage from './pages/itemPage';
 function App() {
@@ -11,7 +11,7 @@ function App() {
             <div className="contentBox" >
                 <Routes>
                     <Route path={'/'} element={<NavigationBar />}>
-                        <Route path={'/'} element={<CharacterPage />} />
+                        <Route path={'/'} element={<CharactersPage />} />
                         <Route path={'/comics'} element={<ComicsPage />} />
                         <Route path={'/character'}>
                             <Route path={':characterId'} element={<ItemPage />}/>

@@ -55,7 +55,6 @@ export class MarvelService {
 
     getAllComics = async (offset = this.baseComicOffset) => {
         const res = await this._getData('comics?orderBy=modified&limit=8&offset=', offset);
-        console.log(offset);
         return res.data.results.map(this._transformComic);
     };
 }

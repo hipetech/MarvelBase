@@ -18,7 +18,7 @@ export default function ItemPageCharInfo({thumbnail, title, description}) {
                         {title}
                     </h2>
                     <p>
-                        {description === '' ? 'There is no character description': description}
+                        {description.length === 0 ? 'There is no description': description}
                     </p>
                 </div>
                 <div className="itemPageLink">

@@ -5,6 +5,7 @@ import {Route, Routes} from 'react-router-dom';
 import CharactersPage from './pages/charactersPage';
 import ComicsPage from './pages/comicsPage';
 import ItemPage from './pages/itemPage';
+
 function App() {
     return (
         <>
@@ -14,10 +15,10 @@ function App() {
                         <Route path={'/'} element={<CharactersPage />} />
                         <Route path={'/comics'} element={<ComicsPage />} />
                         <Route path={'/character'}>
-                            <Route path={':characterId'} element={<ItemPage />}/>
+                            <Route path={':characterTitle'} element={<ItemPage />}/>
                         </Route>
                         <Route path={'/comic'}>
-                            <Route path={':comicId'} element={<ItemPage />} />
+                            <Route path={':comicTitle'} element={<ItemPage />} />
                         </Route>
                     </Route>
                 </Routes>

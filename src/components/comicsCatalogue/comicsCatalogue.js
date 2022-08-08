@@ -40,7 +40,17 @@ export default function ComicsCatalogue() {
                 {
                     comicsItems.map((el, index) => {
                         return (
-                            <Link to={`/comic/${el.title.split(' ').join('')}`} key={index} style={{width: '225px'}}>
+                            <Link to={`/comic/${el.title.split(' ').join('')}`} 
+                                key={index} 
+                                style={{width: '225px'}}
+                                state={{
+                                    thumbnail: el.thumbnail,
+                                    title: el.title,
+                                    description: el.description,
+                                    price: el.price,
+                                    language: el.language,
+                                    pageCount: el.pageCount
+                                }}>
                                 <ComicsItem imgPath={el.thumbnail} title={el.title} price={el.price} />
                             </Link>
                         );

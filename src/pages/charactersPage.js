@@ -3,7 +3,7 @@ import RandomHeroSection from '../components/randomHeroSection/randomHeroSection
 import CharacterBase from '../components/characterBase/characterBase';
 import ErrorBoundary from '../components/errorBoundary/errorBoundary';
 
-export default function CharacterPage() {
+export default function CharactersPage() {
 
     return (
         <>
